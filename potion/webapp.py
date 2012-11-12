@@ -177,6 +177,8 @@ def do_query(q_str):
     if(q_str.startswith('!')):
         q_str = q_str[1:]
         reverse = True
+    else:
+        reverse = False
 
     rules = q_str.split(',')
     query = db_session.query(Item).filter(Item.source_id==Source.source_id)
