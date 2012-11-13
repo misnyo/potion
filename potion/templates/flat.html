@@ -32,9 +32,13 @@
 
 <div class="right">page: {{ items|length }}/{{ unarchiveds|length }}</div>
 <div class="left">
-<form method="post" action="/archive">
-    <input type="hidden" name="ids" value="{{ unarchiveds|join(',') }}" />
-    <input type="submit" value="ARCHIVE THIS VIEW" />
-</form>
+  {% if unarchiveds %}
+    <form method="post" action="/archive">
+      <input type="hidden" name="ids" value="{{ unarchiveds|join(',') }}" />
+      <input type="submit" value="ARCHIVE THIS VIEW" />
+    </form>
+  {% else %}
+    &nbsp;
+  {% endif %}
 </div>
 {% endblock %}
