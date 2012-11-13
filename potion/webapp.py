@@ -195,6 +195,14 @@ def do_query(q_str):
         if rule.startswith('_'):
             query = query.filter(Source.name == rule[1:])
             continue
+        if rule.find('>') != -1:
+            item, value = rule.split('>', 1)
+            query = query.filter(getattr(Item, item) > value)
+            continue
+        if rule.find('<') != -1:
+            item, value = rule.split('<', 1)
+            query = query.filter(getattr(Item, item) < value)
+            continue
     count = query.count()
     limit = int(cfg.get('app', 'items_per_page'))
     offset = limit*(page_num-1)
